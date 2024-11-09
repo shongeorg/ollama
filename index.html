@@ -15,7 +15,7 @@
         let form = document.querySelector('form');
         let output = document.querySelector('pre');
 
-        form.addEventListener('sumbit', e=>{
+        form.addEventListener('submit', e=>{
             e.preventDefault();
             const {name} = e.target.elements;
             if(!name.value.trim()) return;
