@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <input type="text" name="name">
+        <button>send</button>
+    </form>
+    <pre></pre>
+    <script>
+        let form = document.querySelector('form');
+        let output = document.querySelector('pre');
+
+        form.addEventListener('sumbit', e=>{
+            e.preventDefault();
+            const {name} = e.target.elements;
+            if(!name.value.trim()) return;
+            fetch('http://localhost:11434/api/generate', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                model: 'llama3',
+                prompt: name.value,
+                stream: false
+            })
+        })
+        .then(response => response.json())
+        .then(data => output.innerHTML = JSON.stringify(data, null, 2))
+        .catch(error => console.error('Error:', error));
+    })
+    </script>
+</body>
+</html>
